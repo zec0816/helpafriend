@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 include 'connection.php';
 
 $username = $_POST['username'];
@@ -8,16 +7,15 @@ $email = $_POST['email'];
 $role = $_POST['role']; 
 
 $queryRegister = "SELECT * FROM user WHERE username = '".$username."'";
-
 $msql = mysqli_query($connection, $queryRegister);
-
 $result = mysqli_num_rows($msql);
 
 if (!empty($username) && !empty($password) && !empty($email) && !empty($role)) {
-
     if($result == 0) {
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
         $regis = "INSERT INTO user (username, password, email, role)
-        VALUES ('$username', '$password', '$email', '$role')";
+        VALUES ('$username', '$hashedPassword', '$email', '$role')";
 
         $msqlRegis = mysqli_query($connection, $regis);
 

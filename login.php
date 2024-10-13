@@ -1,21 +1,23 @@
 <?php
-
 include 'connection.php';
 
 $username = $_GET['username'];
 $password = $_GET['password'];
 
-$cek = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
+$cek = "SELECT * FROM user WHERE username = '$username'";
 $msql = mysqli_query($connection, $cek);
-$result = mysqli_num_rows($msql);
+$user = mysqli_fetch_assoc($msql);
 
 if (!empty($username) && !empty($password)){
-
-    if($result == 0){
-        echo "0";
-    }else{
-        echo "Welcome";
+    if ($user) {
+        if (password_verify($password, $user['password'])) {
+            echo "Welcome";
+        } else {
+            echo "Invalid password";
+        }
+    } else {
+        echo "0"; 
     }
-}else{
+} else {
     echo "Please fill in your info";
 }
