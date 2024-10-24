@@ -31,3 +31,5 @@ if (!mysqli_query($connection, $tableSql)) {
 }
 
 ?>
+
+//testing

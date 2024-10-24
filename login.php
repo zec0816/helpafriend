@@ -21,3 +21,5 @@ if (!empty($username) && !empty($password)){
 } else {
     echo "Please fill in your info";
 }
+
+//testing
