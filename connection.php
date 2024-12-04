@@ -44,4 +44,17 @@ if (!mysqli_query($connection, $tableSqlForum)) {
     die("Error creating forum table: " . mysqli_error($connection));
 }
 
+$tableSqlLocations = "CREATE TABLE IF NOT EXISTS locations (
+    id_location INT(11) AUTO_INCREMENT PRIMARY KEY,
+    id_user INT(11) NOT NULL,
+    latitude DOUBLE NOT NULL,
+    longitude DOUBLE NOT NULL,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE
+)";
+
+if (!mysqli_query($connection, $tableSqlLocations)) {
+    die("Error creating locations table: " . mysqli_error($connection));
+}
+
 ?>
