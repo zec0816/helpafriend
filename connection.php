@@ -44,4 +44,14 @@ if (!mysqli_query($connection, $tableSqlForum)) {
     die("Error creating forum table: " . mysqli_error($connection));
 }
 
+// Create `likes` table
+$tableSqlLikes = "CREATE TABLE IF NOT EXISTS likes(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_post INT NOT NULL,
+    id_user INT NOT NULL,
+    UNIQUE KEY unique_like (id_post, id_user),
+    FOREIGN KEY (id_post) REFERENCES forum(id_post) ON DELETE CASCADE,
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE
+)";
+
 ?>
