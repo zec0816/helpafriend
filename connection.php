@@ -49,6 +49,7 @@ $tableSqlLocations = "CREATE TABLE IF NOT EXISTS locations (
     id_user INT(11) NOT NULL,
     latitude DOUBLE NOT NULL,
     longitude DOUBLE NOT NULL,
+    status ENUM('pending', 'accepted', 'cancelled') DEFAULT 'pending',
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE
 )";
