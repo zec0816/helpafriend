@@ -11,7 +11,11 @@ $user = mysqli_fetch_assoc($msql);
 if (!empty($username) && !empty($password)){
     if ($user) {
         if (password_verify($password, $user['password'])) {
-            echo "Welcome";
+            // Send role in the response
+            echo json_encode([
+                'status' => 'success',
+                'role' => $user['role'], // Assuming 'role' is the column storing the user role
+            ]);
         } else {
             echo "Invalid password";
         }
@@ -21,3 +25,4 @@ if (!empty($username) && !empty($password)){
 } else {
     echo "Please fill in your info";
 }
+?>
