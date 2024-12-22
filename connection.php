@@ -61,4 +61,14 @@ if (!mysqli_query($connection, $tableSqlLocations)) {
     die("Error creating locations table: " . mysqli_error($connection));
 }
 
+$tableSqlLeaderboard = "CREATE TABLE IF NOT EXISTS leaderboard (
+    id_user INT(11) PRIMARY KEY,
+    num_helped INT(11) DEFAULT 0,
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE
+)";
+
+if (!mysqli_query($connection, $tableSqlLeaderboard)) {
+    die("Error creating leaderboard table: " . mysqli_error($connection));
+}
+
 ?>

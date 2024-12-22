@@ -27,12 +27,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $updateQuery = "UPDATE locations SET status = '$status', accepted_by = '$volunteer_id' WHERE id_location = '$id_location'";
         
         if (mysqli_query($connection, $updateQuery)) {
-            echo "Request status updated successfully";
+            // Increment or insert into the leaderboard
+            $leaderboardQuery = "
+                INSERT INTO leaderboard (id_user, num_helped) 
+                VALUES ('$volunteer_id', 1)
+                ON DUPLICATE KEY UPDATE num_helped = num_helped + 1";
+
+            if (mysqli_query($connection, $leaderboardQuery)) {
+                echo "Request status updated successfully and leaderboard updated";
+            } else {
+                echo "Error updating leaderboard: " . mysqli_error($connection);
+            }
         } else {
-            echo "Error: " . mysqli_error($connection);
+            echo "Error updating request: " . mysqli_error($connection);
         }
     } else {
         echo "User not found";
     }
 }
+
 ?>
