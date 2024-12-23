@@ -1,54 +1,57 @@
 <?php
 include 'connection.php';
 
-$oldUsername = $_POST['old_username'];
-$newUsername = $_POST['new_username'];
-$newPassword = $_POST['new_password'];
+// Get POST parameters
+$old_username = $_POST['old_username'];
+$new_username = $_POST['new_username'];
+$new_password = $_POST['new_password'];
 
-if (!empty($oldUsername)) {
-    // Check if the user exists
-    $checkUserSql = "SELECT * FROM user WHERE username = '$oldUsername'";
-    $checkUserResult = mysqli_query($connection, $checkUserSql);
+// Check if old username exists
+$check_user = "SELECT * FROM user WHERE username = '$old_username'";
+$result = mysqli_query($connection, $check_user);
+$user = mysqli_fetch_assoc($result);
 
-    if (mysqli_num_rows($checkUserResult) > 0) {
-        $fieldsToUpdate = array();
+if (!$user) {
+    echo "User not found";
+    exit();
+}
 
-        // Update the username if provided
-        if (!empty($newUsername)) {
-            // Check if the new username is already taken
-            $checkNewUserSql = "SELECT * FROM user WHERE username = '$newUsername'";
-            $checkNewUserResult = mysqli_query($connection, $checkNewUserSql);
+// Initialize query parts
+$updates = array();
+$success = false;
 
-            if (mysqli_num_rows($checkNewUserResult) > 0) {
-                echo "Username already taken";
-                exit;
-            }
-            $fieldsToUpdate[] = "username = '$newUsername'";
+// Handle username update if provided
+if (!empty($new_username)) {
+    // Check if new username already exists (skip if it's the same as old username)
+    if ($new_username !== $old_username) {
+        $check_username = "SELECT * FROM user WHERE username = '$new_username'";
+        $username_result = mysqli_query($connection, $check_username);
+        if (mysqli_num_rows($username_result) > 0) {
+            echo "Username already taken";
+            exit();
         }
+        $updates[] = "username = '$new_username'";
+    }
+}
 
-        // Update the password if provided
-        if (!empty($newPassword)) {
-            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-            $fieldsToUpdate[] = "password = '$hashedPassword'";
-        }
+// Handle password update if provided
+if (!empty($new_password)) {
+    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+    $updates[] = "password = '$hashed_password'";
+}
 
-        // If no changes detected
-        if (empty($fieldsToUpdate)) {
-            echo "No changes made";
-            exit;
-        }
-
-        // Build and execute the UPDATE query
-        $updateSql = "UPDATE user SET " . implode(", ", $fieldsToUpdate) . " WHERE username = '$oldUsername'";
-        if (mysqli_query($connection, $updateSql)) {
-            echo "Profile updated";
-        } else {
-            echo "Update failed: " . mysqli_error($connection);
-        }
+// If there are updates to make
+if (!empty($updates)) {
+    $update_query = "UPDATE user SET " . implode(", ", $updates) . " WHERE username = '$old_username'";
+    
+    if (mysqli_query($connection, $update_query)) {
+        echo "Profile updated";
     } else {
-        echo "User not found";
+        echo "Error updating profile";
     }
 } else {
-    echo "Missing required fields";
+    echo "No changes requested";
 }
+
+mysqli_close($connection);
 ?>
