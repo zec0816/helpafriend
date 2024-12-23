@@ -1,60 +1,63 @@
 <?php
+// Set header to indicate JSON response
+header('Content-Type: application/json; charset=utf-8');
 
-$hostName = "localhost";
-$userName = "root";
-$password = "";
-$dbName = "helpafriend";
+require_once 'connection.php';
 
-$connection = mysqli_connect($hostName, $userName, $password);
-
-if (!$connection) {
-    die("Connection failed: " . mysqli_connect_error());
+// Ensure any errors are caught and returned as JSON
+function returnError($message) {
+    echo json_encode([
+        'success' => false,
+        'message' => $message
+    ]);
+    exit();
 }
 
-// Create the database if it doesn't exist
-$sql = "CREATE DATABASE IF NOT EXISTS $dbName";
-if (!mysqli_query($connection, $sql)) {
-    die("Error creating database: " . mysqli_error($connection));
+// Get username from POST request
+if (!isset($_POST['username']) || empty($_POST['username'])) {
+    returnError('Username is required');
 }
 
-mysqli_select_db($connection, $dbName);
+$username = $_POST['username'];
 
-$tableSqlUser = "CREATE TABLE IF NOT EXISTS user (
-    id_user INT(11) AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(100) NOT NULL,
-    email VARCHAR(300) NOT NULL UNIQUE,
-    role ENUM('volunteer', 'OKU') NOT NULL
-)";
+// Start transaction
+mysqli_begin_transaction($connection);
 
-if (!mysqli_query($connection, $tableSqlUser)) {
-    die("Error creating user table: " . mysqli_error($connection));
+try {
+    // Delete the user - cascade will handle related records
+    $stmt = mysqli_prepare($connection, "DELETE FROM user WHERE username = ?");
+    if (!$stmt) {
+        throw new Exception("Prepare failed: " . mysqli_error($connection));
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $username);
+    
+    if (!mysqli_stmt_execute($stmt)) {
+        throw new Exception("Execute failed: " . mysqli_error($connection));
+    }
+
+    $affected_rows = mysqli_affected_rows($connection);
+    
+    if ($affected_rows > 0) {
+        mysqli_commit($connection);
+        echo json_encode([
+            'success' => true,
+            'message' => 'Account deleted successfully'
+        ]);
+    } else {
+        mysqli_rollback($connection);
+        echo json_encode([
+            'success' => false,
+            'message' => 'User not found'
+        ]);
+    }
+    
+    mysqli_stmt_close($stmt);
+
+} catch (Exception $e) {
+    mysqli_rollback($connection);
+    returnError('Error deleting account: ' . $e->getMessage());
 }
 
-$tableSqlForum = "CREATE TABLE IF NOT EXISTS forum (
-    id_post INT(11) AUTO_INCREMENT PRIMARY KEY,
-    id_user INT(11) NOT NULL,
-    title VARCHAR(255) NOT NULL,
-    content TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE
-)";
-
-if (!mysqli_query($connection, $tableSqlForum)) {
-    die("Error creating forum table: " . mysqli_error($connection));
-}
-
-$tableSqlLocations = "CREATE TABLE IF NOT EXISTS locations (
-    id_location INT(11) AUTO_INCREMENT PRIMARY KEY,
-    id_user INT(11) NOT NULL,
-    latitude DOUBLE NOT NULL,
-    longitude DOUBLE NOT NULL,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE
-)";
-
-if (!mysqli_query($connection, $tableSqlLocations)) {
-    die("Error creating locations table: " . mysqli_error($connection));
-}
-
+mysqli_close($connection);
 ?>
