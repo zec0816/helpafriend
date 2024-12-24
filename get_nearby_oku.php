@@ -3,7 +3,7 @@
 require_once('connection.php');
 
 // Query to get all OKU locations from the database
-$sql = "SELECT latitude, longitude FROM locations";
+$sql = "SELECT id_location, latitude, longitude FROM locations WHERE status = 'pending'";
 $result = mysqli_query($connection, $sql);
 
 $locations = array();
