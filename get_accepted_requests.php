@@ -12,8 +12,23 @@ $user = mysqli_fetch_assoc($userResult);
 if ($user) {
     $id_user = $user['id_user'];
 
-    // Get all accepted requests for the user
-    $query = "SELECT id_location, latitude, longitude FROM locations WHERE id_user = $id_user AND status = 'accepted'";
+    // Get all accepted requests for the user, including volunteer details
+    $query = "
+        SELECT 
+            l.id_location, 
+            l.latitude, 
+            l.longitude, 
+            u.username AS volunteer_name 
+        FROM 
+            locations l
+        JOIN 
+            user u 
+        ON 
+            l.accepted_by = u.id_user
+        WHERE 
+            l.id_user = $id_user 
+            AND l.status = 'accepted'
+    ";
     $result = mysqli_query($connection, $query);
 
     $requests = [];
