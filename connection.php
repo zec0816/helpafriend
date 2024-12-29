@@ -71,4 +71,18 @@ if (!mysqli_query($connection, $tableSqlLeaderboard)) {
     die("Error creating leaderboard table: " . mysqli_error($connection));
 }
 
+$tableSqlComment = "CREATE TABLE IF NOT EXISTS comment (
+    id_comment INT(11) AUTO_INCREMENT PRIMARY KEY,          -- Unique ID for each comment
+    id_post INT NOT NULL,                                   -- ID of the post being commented on
+    id_user INT NOT NULL,                                   -- ID of the user who made the comment
+    comment TEXT NOT NULL,                                  -- The comment text
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,         -- Timestamp when the comment was created
+    FOREIGN KEY (id_post) REFERENCES forum(id_post) ON DELETE CASCADE, -- Link to the forum table
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE   -- Link to the user table
+)";
+
+if (!mysqli_query($connection, $tableSqlComment)) {
+    die("Error creating comment table: " . mysqli_error($connection));
+}
+
 ?>
