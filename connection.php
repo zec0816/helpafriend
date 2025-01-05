@@ -85,4 +85,17 @@ if (!mysqli_query($connection, $tableSqlComment)) {
     die("Error creating comment table: " . mysqli_error($connection));
 }
 
+$tableSqlLike = "CREATE TABLE IF NOT EXISTS likes (
+    id_like INT(11) AUTO_INCREMENT PRIMARY KEY,           -- Unique ID for each like
+    id_post INT NOT NULL,                                 -- ID of the post being liked
+    id_user INT NOT NULL,                                 -- ID of the user who liked the post
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,       -- Timestamp when the like was created
+    FOREIGN KEY (id_post) REFERENCES forum(id_post) ON DELETE CASCADE, -- Link to the forum table
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE   -- Link to the user table 
+)";
+
+if (!mysqli_query($connection, $tableSqlLike)) {
+    die("Error creating likes table: " . mysqli_error($connection));
+}
+
 ?>
