@@ -1,17 +1,16 @@
 <?php
 require 'connection.php';
 
-$username = $_POST['username'];  // Get the username from the POST request
+$username = $_POST['username'];  
 $latitude = $_POST['latitude'];
 $longitude = $_POST['longitude'];
 
-// Retrieve the user ID based on the username
 $userCheckQuery = "SELECT id_user FROM user WHERE username = '$username'";
 $userResult = mysqli_query($connection, $userCheckQuery);
 $user = mysqli_fetch_assoc($userResult);
 
 if ($user) {
-    $id_user = $user['id_user']; // Get the user ID
+    $id_user = $user['id_user'];
 
     // Insert or update the location for the user
     $sql = "INSERT INTO locations (id_user, latitude, longitude) VALUES ('$id_user', '$latitude', '$longitude') 

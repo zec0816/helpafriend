@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $status = mysqli_real_escape_string($connection, $_POST['status']);
     $username = mysqli_real_escape_string($connection, $_POST['username']);
 
-    // Retrieve the user ID based on the username
     $userCheckQuery = "SELECT id_user FROM user WHERE username = '$username'";
     $userResult = mysqli_query($connection, $userCheckQuery);
     $user = mysqli_fetch_assoc($userResult);

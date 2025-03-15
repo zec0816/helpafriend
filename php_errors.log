@@ -1,0 +1,153 @@
+[05-Jan-2025 19:53:20 Europe/Berlin] Request Method: POST
+[05-Jan-2025 19:53:20 Europe/Berlin] GET Data: Array
+(
+)
+
+[05-Jan-2025 19:53:20 Europe/Berlin] POST Data: Array
+(
+)
+
+[05-Jan-2025 19:53:20 Europe/Berlin] Decoded JSON POST Data: Array
+(
+    [post_id] => 3
+    [user_id] => 2
+    [action] => like
+)
+
+[05-Jan-2025 19:53:20 Europe/Berlin] Like action received: post_id=3, user_id=2
+[05-Jan-2025 19:53:20 Europe/Berlin] Request Method: POST
+[05-Jan-2025 19:53:20 Europe/Berlin] GET Data: Array
+(
+)
+
+[05-Jan-2025 19:53:20 Europe/Berlin] POST Data: Array
+(
+)
+
+[05-Jan-2025 19:53:20 Europe/Berlin] Decoded JSON POST Data: Array
+(
+    [post_id] => 3
+    [user_id] => 2
+    [action] => unlike
+)
+
+[05-Jan-2025 19:53:20 Europe/Berlin] Unlike action received: post_id=3, user_id=2
+[05-Jan-2025 19:53:21 Europe/Berlin] Request Method: POST
+[05-Jan-2025 19:53:21 Europe/Berlin] GET Data: Array
+(
+)
+
+[05-Jan-2025 19:53:21 Europe/Berlin] POST Data: Array
+(
+)
+
+[05-Jan-2025 19:53:21 Europe/Berlin] Decoded JSON POST Data: Array
+(
+    [post_id] => 3
+    [user_id] => 2
+    [action] => like
+)
+
+[05-Jan-2025 19:53:21 Europe/Berlin] Like action received: post_id=3, user_id=2
+[05-Jan-2025 20:09:29 Europe/Berlin] Request Method: POST
+[05-Jan-2025 20:09:29 Europe/Berlin] GET Data: Array
+(
+)
+
+[05-Jan-2025 20:09:29 Europe/Berlin] POST Data: Array
+(
+)
+
+[05-Jan-2025 20:09:29 Europe/Berlin] Decoded JSON POST Data: Array
+(
+    [post_id] => 4
+    [user_id] => 2
+    [action] => like
+)
+
+[05-Jan-2025 20:09:29 Europe/Berlin] Like action received: post_id=4, user_id=2
+[05-Jan-2025 20:09:29 Europe/Berlin] Request Method: POST
+[05-Jan-2025 20:09:29 Europe/Berlin] GET Data: Array
+(
+)
+
+[05-Jan-2025 20:09:29 Europe/Berlin] POST Data: Array
+(
+)
+
+[05-Jan-2025 20:09:29 Europe/Berlin] Decoded JSON POST Data: Array
+(
+    [post_id] => 4
+    [user_id] => 2
+    [action] => unlike
+)
+
+[05-Jan-2025 20:09:29 Europe/Berlin] Unlike action received: post_id=4, user_id=2
+[06-Jan-2025 04:09:29 Europe/Berlin] Request Method: POST
+[06-Jan-2025 04:09:29 Europe/Berlin] GET Data: Array
+(
+)
+
+[06-Jan-2025 04:09:29 Europe/Berlin] POST Data: Array
+(
+)
+
+[06-Jan-2025 04:09:29 Europe/Berlin] Decoded JSON POST Data: Array
+(
+    [post_id] => 4
+    [user_id] => 2
+    [action] => like
+)
+
+[06-Jan-2025 04:09:29 Europe/Berlin] Like action received: post_id=4, user_id=2
+[06-Jan-2025 04:09:30 Europe/Berlin] Request Method: POST
+[06-Jan-2025 04:09:30 Europe/Berlin] GET Data: Array
+(
+)
+
+[06-Jan-2025 04:09:30 Europe/Berlin] POST Data: Array
+(
+)
+
+[06-Jan-2025 04:09:30 Europe/Berlin] Decoded JSON POST Data: Array
+(
+    [post_id] => 4
+    [user_id] => 2
+    [action] => unlike
+)
+
+[06-Jan-2025 04:09:30 Europe/Berlin] Unlike action received: post_id=4, user_id=2
+[06-Jan-2025 04:14:18 Europe/Berlin] Request Method: POST
+[06-Jan-2025 04:14:18 Europe/Berlin] GET Data: Array
+(
+)
+
+[06-Jan-2025 04:14:18 Europe/Berlin] POST Data: Array
+(
+)
+
+[06-Jan-2025 04:14:18 Europe/Berlin] Decoded JSON POST Data: Array
+(
+    [post_id] => 4
+    [user_id] => 2
+    [action] => like
+)
+
+[06-Jan-2025 04:14:18 Europe/Berlin] Like action received: post_id=4, user_id=2
+[06-Jan-2025 04:14:18 Europe/Berlin] Request Method: POST
+[06-Jan-2025 04:14:18 Europe/Berlin] GET Data: Array
+(
+)
+
+[06-Jan-2025 04:14:18 Europe/Berlin] POST Data: Array
+(
+)
+
+[06-Jan-2025 04:14:18 Europe/Berlin] Decoded JSON POST Data: Array
+(
+    [post_id] => 4
+    [user_id] => 2
+    [action] => unlike
+)
+
+[06-Jan-2025 04:14:18 Europe/Berlin] Unlike action received: post_id=4, user_id=2

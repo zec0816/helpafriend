@@ -9,22 +9,20 @@ error_log("Request Method: " . $_SERVER['REQUEST_METHOD']);
 error_log("GET Data: " . print_r($_GET, true));
 error_log("POST Data: " . print_r($_POST, true));
 
-// Handle JSON input for POST requests
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contentType = $_SERVER['CONTENT_TYPE'] ?? '';
     if (strpos($contentType, 'application/json') !== false) {
         $input = file_get_contents('php://input');
-        $_POST = json_decode($input, true); // Decode JSON input into the $_POST array
+        $_POST = json_decode($input, true); 
         if (json_last_error() !== JSON_ERROR_NONE) {
             error_log("JSON Decode Error: " . json_last_error_msg());
             echo json_encode(['status' => 'error', 'message' => 'Invalid JSON']);
             exit();
         }
-        error_log("Decoded JSON POST Data: " . print_r($_POST, true)); // Log the decoded data for debugging
+        error_log("Decoded JSON POST Data: " . print_r($_POST, true)); 
     }
 }
 
-// Database connection details
 $hostName = "localhost";
 $userName = "root";
 $password = "";
@@ -123,14 +121,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
     if ($result) {
         $posts = [];
         while ($row = mysqli_fetch_assoc($result)) {
-            error_log("Post Data: " . print_r($row, true)); // Log post data for debugging
+            error_log("Post Data: " . print_r($row, true)); 
             $posts[] = [
                 'id_post' => $row['id_post'],
                 'title' => $row['title'],
                 'content' => $row['content'],
                 'created_at' => $row['created_at'],
                 'like_count' => intval($row['like_count']),
-                'is_liked' => boolval($row['is_liked']) // Convert to boolean
+                'is_liked' => boolval($row['is_liked'])
             ];
         }
         echo json_encode($posts);
@@ -141,7 +139,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['user_id'])) {
     exit();
 }
 
-// Handle GET request for Like Count (Optional Endpoint)
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['post_id'])) {
     $postId = intval($_GET['post_id']);
     $sql = "SELECT COUNT(*) AS like_count FROM likes WHERE id_post = ?";
@@ -160,7 +157,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['post_id'])) {
     exit();
 }
 
-// Fallback for invalid requests
 echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
 mysqli_close($connection);
 ?>

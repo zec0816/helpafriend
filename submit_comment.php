@@ -14,9 +14,8 @@ if (!$connection) {
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = mysqli_real_escape_string($connection, $_POST['username']);
     $comment = mysqli_real_escape_string($connection, $_POST['comment']);
-    $id_post = mysqli_real_escape_string($connection, $_POST['id_post']); // Correct variable name
+    $id_post = mysqli_real_escape_string($connection, $_POST['id_post']); 
 
-    // Check if the user exists
     $userCheckQuery = "SELECT id_user FROM user WHERE username = '$username'";
     $userResult = mysqli_query($connection, $userCheckQuery);
     $user = mysqli_fetch_assoc($userResult);

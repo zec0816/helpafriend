@@ -1,10 +1,8 @@
 <?php
 require_once('connection.php');
 
-// Get the username from the POST request
 $username = $_POST['username'];
 
-// Get the user ID for the given username
 $userQuery = "SELECT id_user FROM user WHERE username = '$username'";
 $userResult = mysqli_query($connection, $userQuery);
 $user = mysqli_fetch_assoc($userResult);
@@ -38,7 +36,6 @@ if ($user) {
         }
     }
 
-    // Return the accepted requests as JSON
     header('Content-Type: application/json');
     echo json_encode($requests);
 } else {

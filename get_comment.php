@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     if (isset($_GET['id_post']) && is_numeric($_GET['id_post'])) {
         $id_post = mysqli_real_escape_string($connection, $_GET['id_post']);
 
-        // Fetch the post title
         $titleQuery = "SELECT title FROM forum WHERE id_post = '$id_post'";
         $titleResult = mysqli_query($connection, $titleQuery);
 
@@ -50,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 }
             }
 
-            // Return the response
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 'success',
