@@ -1,13 +1,11 @@
 <?php
 include 'connection.php';
 
-// Initialize the response array
 $response = array(
     'success' => false,
     'message' => ''
 );
 
-// Get POST parameters
 $old_username = $_POST['old_username'] ?? '';
 $new_username = $_POST['new_username'] ?? '';
 $new_password = $_POST['new_password'] ?? '';
@@ -23,10 +21,8 @@ if (!$user) {
     exit();
 }
 
-// Initialize query parts
 $updates = array();
 
-// Handle username update if provided
 if (!empty($new_username)) {
     // Check if new username already exists (skip if it's the same as old username)
     if ($new_username !== $old_username) {
@@ -61,10 +57,8 @@ if (!empty($updates)) {
     $response['message'] = "No changes requested";
 }
 
-// Set header to indicate JSON response
 header('Content-Type: application/json');
 
-// Send JSON response
 echo json_encode($response);
 
 mysqli_close($connection);

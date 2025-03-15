@@ -14,7 +14,7 @@ if (!empty($username) && !empty($password)){
             // Send role in the response
             echo json_encode([
                 'status' => 'success',
-                'role' => $user['role'], // Assuming 'role' is the column storing the user role
+                'role' => $user['role'], 
             ]);
         } else {
             echo "Invalid password";

@@ -4,7 +4,7 @@ require_once('connection.php');
 if (isset($_GET['username'])) {
     $username = $_GET['username'];
 
-    // Step 1: Get the volunteer's id_user using the provided username
+    // Get the volunteer's id_user using the provided username
     $query = "SELECT id_user FROM user WHERE username = ?";
     $stmt = $connection->prepare($query);
     $stmt->bind_param("s", $username);
@@ -16,7 +16,7 @@ if (isset($_GET['username'])) {
         $userRow = $result->fetch_assoc();
         $volunteer_id = $userRow['id_user'];
 
-        // Step 2: Fetch OKU's id_user and updated_at (help date) where accepted_by = volunteer_id
+        // Fetch OKU's id_user and updated_at (help date) where accepted_by = volunteer_id
         $query = "
             SELECT l.id_user AS oku_id, l.updated_at AS help_date, u.username AS oku_name
             FROM locations l
@@ -34,11 +34,10 @@ if (isset($_GET['username'])) {
             $helpedList[] = [
                 'oku_id' => $row['oku_id'],
                 'oku_name' => $row['oku_name'],
-                'help_date' => $row['help_date'] // Store help date (updated_at)
+                'help_date' => $row['help_date'] 
             ];
         }
 
-        // Return the list as JSON along with the total count
         $response = [
             'total_helped' => $result->num_rows,
             'helped_list' => $helpedList

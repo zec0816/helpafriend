@@ -11,17 +11,16 @@ if (!$connection) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = mysqli_real_escape_string($connection, $_POST['username']); // Get username from POST request
+    $username = mysqli_real_escape_string($connection, $_POST['username']);
     $title = mysqli_real_escape_string($connection, $_POST['title']);
     $content = mysqli_real_escape_string($connection, $_POST['content']);
 
-    // Retrieve the user ID based on the username
     $userCheckQuery = "SELECT id_user FROM user WHERE username = '$username'";
     $userResult = mysqli_query($connection, $userCheckQuery);
     $user = mysqli_fetch_assoc($userResult);
 
     if ($user) {
-        $id_user = $user['id_user']; // Get the user ID
+        $id_user = $user['id_user']; 
 
         $sql = "INSERT INTO forum (id_user, title, content) VALUES ('$id_user', '$title', '$content')";
         

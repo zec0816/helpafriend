@@ -9,12 +9,11 @@ if (!$connection) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-//changes 
 $query = "SELECT forum.id_post, forum.title, forum.content, forum.created_at, user.username
 FROM forum
 INNER JOIN user ON forum.id_user = user.id_user
 ORDER BY forum.created_at DESC;
-"; //changes 
+"; 
 $result = mysqli_query($connection, $query);
 
 $posts = array();

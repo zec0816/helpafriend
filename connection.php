@@ -19,6 +19,7 @@ if (!mysqli_query($connection, $sql)) {
 
 mysqli_select_db($connection, $dbName);
 
+// Create user table
 $tableSqlUser = "CREATE TABLE IF NOT EXISTS user (
     id_user INT(11) AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
@@ -31,6 +32,7 @@ if (!mysqli_query($connection, $tableSqlUser)) {
     die("Error creating user table: " . mysqli_error($connection));
 }
 
+// Create forum table
 $tableSqlForum = "CREATE TABLE IF NOT EXISTS forum (
     id_post INT(11) AUTO_INCREMENT PRIMARY KEY,
     id_user INT(11) NOT NULL,
@@ -44,7 +46,7 @@ if (!mysqli_query($connection, $tableSqlForum)) {
     die("Error creating forum table: " . mysqli_error($connection));
 }
 
-// Create the locations table
+// Create locations table
 $tableSqlLocations = "CREATE TABLE IF NOT EXISTS locations (
     id_location INT(11) AUTO_INCREMENT PRIMARY KEY,
     id_user INT(11) NOT NULL,
@@ -61,6 +63,7 @@ if (!mysqli_query($connection, $tableSqlLocations)) {
     die("Error creating locations table: " . mysqli_error($connection));
 }
 
+// Create leaderboard table
 $tableSqlLeaderboard = "CREATE TABLE IF NOT EXISTS leaderboard (
     id_user INT(11) PRIMARY KEY,
     num_helped INT(11) DEFAULT 0,
@@ -71,27 +74,29 @@ if (!mysqli_query($connection, $tableSqlLeaderboard)) {
     die("Error creating leaderboard table: " . mysqli_error($connection));
 }
 
+// Create comment table
 $tableSqlComment = "CREATE TABLE IF NOT EXISTS comment (
-    id_comment INT(11) AUTO_INCREMENT PRIMARY KEY,          -- Unique ID for each comment
-    id_post INT NOT NULL,                                   -- ID of the post being commented on
-    id_user INT NOT NULL,                                   -- ID of the user who made the comment
-    comment TEXT NOT NULL,                                  -- The comment text
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,         -- Timestamp when the comment was created
-    FOREIGN KEY (id_post) REFERENCES forum(id_post) ON DELETE CASCADE, -- Link to the forum table
-    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE   -- Link to the user table
+    id_comment INT(11) AUTO_INCREMENT PRIMARY KEY,        
+    id_post INT NOT NULL,                                
+    id_user INT NOT NULL,                                  
+    comment TEXT NOT NULL,                                  
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,         
+    FOREIGN KEY (id_post) REFERENCES forum(id_post) ON DELETE CASCADE, 
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE   
 )";
 
 if (!mysqli_query($connection, $tableSqlComment)) {
     die("Error creating comment table: " . mysqli_error($connection));
 }
 
+// Create likes table
 $tableSqlLike = "CREATE TABLE IF NOT EXISTS likes (
-    id_like INT(11) AUTO_INCREMENT PRIMARY KEY,           -- Unique ID for each like
-    id_post INT NOT NULL,                                 -- ID of the post being liked
-    id_user INT NOT NULL,                                 -- ID of the user who liked the post
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,       -- Timestamp when the like was created
-    FOREIGN KEY (id_post) REFERENCES forum(id_post) ON DELETE CASCADE, -- Link to the forum table
-    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE   -- Link to the user table 
+    id_like INT(11) AUTO_INCREMENT PRIMARY KEY,           
+    id_post INT NOT NULL,                                 
+    id_user INT NOT NULL,                                 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,       
+    FOREIGN KEY (id_post) REFERENCES forum(id_post) ON DELETE CASCADE, 
+    FOREIGN KEY (id_user) REFERENCES user(id_user) ON DELETE CASCADE   
 )";
 
 if (!mysqli_query($connection, $tableSqlLike)) {
