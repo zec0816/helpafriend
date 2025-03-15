@@ -1,11 +1,11 @@
-# Help a Friend Backend
+# Help a Friend Backend 🛠️
 
 ## Introduction
 This is the backend for the **Help a Friend** mobile application, which connects persons with disabilities (OKU) with volunteers for real-time assistance and support. The backend is responsible for handling authentication, user requests, location tracking, and database management.
 
 ---
 
-## Features
+## Features 🚀
 - User authentication (signup, login, password reset, profile update, and deletion)
 - Manage OKU help requests and volunteer acceptance
 - Real-time location tracking
@@ -16,7 +16,7 @@ This is the backend for the **Help a Friend** mobile application, which connects
 
 ---
 
-## Setup Instructions
+## Setup Instructions ⚙️
 
 ### 1. Clone the Repository
 ```sh
@@ -51,7 +51,7 @@ The backend will be accessible at `http://localhost:8000/`.
 
 ---
 
-## API Endpoints
+## API Endpoints 📡
 ### User Authentication
 - `POST /register.php` – Register a new user
 - `POST /login.php` – Authenticate a user
